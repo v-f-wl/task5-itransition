@@ -7,7 +7,7 @@ interface RequestsContextType {
   language: LanguageType,
   gridStyle: 'line'| 'grid',
   ratingQuery: number 
-  seed: number 
+  seed: number,
   reviewsQuery: number ,
   randomSeed: () => void,
   setRatingQuery: Dispatch<SetStateAction<number >>,

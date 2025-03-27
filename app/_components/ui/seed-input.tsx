@@ -2,8 +2,6 @@
 import { useRequestsContext } from '@/providers/requests-context';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { useEffect, useState } from 'react';
-import { debounce } from "lodash";
 import IRandom from '../icons/random-icon';
 
 const SeedInput = () => {
@@ -13,11 +11,6 @@ const SeedInput = () => {
     return <div className=""></div>
   }
   const {  seed, setSeed, randomSeed } = context
-  // const [inputValue, setInputValue] = useState(seed)
-
-  // useEffect(() => {
-  //   setInputValue(prev => seed)
-  // }, [seed])
 
   return (
     <Box
@@ -33,11 +26,7 @@ const SeedInput = () => {
         value={seed}
         label='Seed' 
         variant="outlined" 
-        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-          const newSeed = Number(event.target.value);
-          // setInputValue(prev => newSeed)
-          setSeed(prev => newSeed)
-        }}
+        onChange={e => setSeed(Number(e.target.value))}
       />
       <div 
         onClick={randomSeed}

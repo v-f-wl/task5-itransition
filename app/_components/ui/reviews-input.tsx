@@ -15,6 +15,7 @@ const ReviewsInput = () => {
   
   const { reviewsQuery, setReviewsQuery, language } = context
   const [inputValue, setInputValue] = useState(reviewsQuery)
+  
   const updateReviews = useCallback(
     debounce((newSeed: number) => {
       setReviewsQuery(newSeed);

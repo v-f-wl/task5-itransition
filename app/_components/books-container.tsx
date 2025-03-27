@@ -5,6 +5,7 @@ import { BookProps } from "@/types";
 import { useRequestsContext } from "@/providers/requests-context";
 import { generateBooks } from "../actions";
 import ILoading from "./icons/loading-icon";
+import { debounce } from "lodash";
 
 const BooksContainer = () => {
   const [booksHandler, setBooksHandler] = useState<BookProps[]>([])
@@ -18,7 +19,7 @@ const BooksContainer = () => {
   const { language, gridStyle, seed, reviewsQuery, ratingQuery } = context
 
   useEffect(() => {
-    const fetchBooks = async () => {
+    const debouncedFetch = debounce(async () => {
       const resultBooks = await getBooks({
         locale: language,
         indexOfLastBook: 1,
@@ -27,15 +28,19 @@ const BooksContainer = () => {
         limit: 20,
         rating: ratingQuery,
         reviews: reviewsQuery,
-      })
-
-      setIndexOfLastBook(resultBooks.indexOfLastBook)
-      setBooksHandler(resultBooks.books)
-      setOffset(resultBooks.offset)
-    }
-
-    fetchBooks()
-  }, [language, seed, reviewsQuery, ratingQuery])
+      });
+      
+      setIndexOfLastBook(resultBooks.indexOfLastBook);
+      setBooksHandler(resultBooks.books);
+      setOffset(resultBooks.offset);
+    }, 500);
+    
+    debouncedFetch();
+  
+    return () => {
+      debouncedFetch.cancel()
+    };
+  }, [language, seed, reviewsQuery, ratingQuery]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
