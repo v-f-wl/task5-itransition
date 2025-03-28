@@ -1,5 +1,5 @@
-import type { Metadata } from "next";
 import "./globals.css";
+import type { Metadata } from "next";
 import { RequestsProvider } from "@/providers/requests-context";
 
 export const metadata: Metadata = {

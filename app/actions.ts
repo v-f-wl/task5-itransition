@@ -8,6 +8,7 @@ interface RequestType {
   rating: number;
   reviews: number;
   indexOfLastBook: number;
+  page: number;
 }
 
 const locales: Record<string, typeof en> = { en, de, ru }
@@ -19,7 +20,8 @@ export async function generateBooks({
   limit,
   rating,
   reviews,
-  indexOfLastBook
+  indexOfLastBook,
+  page
 }: RequestType) {
   try {
     if(reviews > 10 || rating> 10) return { status: 200, books: [], offset, indexOfLastBook};
@@ -46,9 +48,9 @@ export async function generateBooks({
       }
       currentOffset++;
     }
-    return { status: 200, books, offset: currentOffset, indexOfLastBook: currentIndex}
+    return { status: 200, books, offset: currentOffset, indexOfLastBook: currentIndex, page: ++page}
   } catch (error) {
-    return { status: 500, error, books: [], offset: 0, indexOfLastBook: -1 }
+    return { status: 500, error, books: [], offset: 0, indexOfLastBook: -1, page: 1}
   }
 }
 

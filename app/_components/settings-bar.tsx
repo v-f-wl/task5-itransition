@@ -7,7 +7,7 @@ import ReviewsInput from "./ui/reviews-input";
 import GridType from "./ui/grid-type";
 
 
-const Nav = () => {
+const SettingsBar = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   useEffect(() => {
     const handleScroll = () => {
@@ -36,4 +36,4 @@ const Nav = () => {
   );
 }
  
-export default Nav;
+export default SettingsBar;
